@@ -1,0 +1,10 @@
+.clear-fix {
+  overflow: hidden;
+  zoom: 1;
+  &:after{
+    display: table-cell;
+    content: "";
+    width: 0;
+    clear: both;
+  }
+}
