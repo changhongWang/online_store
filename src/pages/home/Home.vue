@@ -2,11 +2,8 @@
   <div>
     <home-header></home-header>
     <navbar :links="navLinks"></navbar>
-<<<<<<< HEAD
     <home-main-area></home-main-area>
-=======
     <home-footer></home-footer>
->>>>>>> origin/footer-dev
   </div>
 </template>
 
