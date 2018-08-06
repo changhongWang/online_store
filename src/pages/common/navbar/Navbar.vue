@@ -2,7 +2,7 @@
   <section class="navbar">
     <ul class="link-list">
       <li class="link" v-for="(link, index) in links" :key="link.id">
-        <a :href="link.href">{{link.name}}</a>
+        <router-link :to="link.href">{{link.name}}</router-link>
         <span v-show="ifShowSlash(index)" class="slash">/</span>
       </li>
     </ul>
