@@ -1,0 +1,35 @@
+{
+  "stat": 1,
+  "data": [
+    {
+      "id": "0001",
+      "imgUrl": "http://hotemotion.fun:3389/static/19.jpg",
+      "name": "小米6X 极简保护壳",
+      "price": 29.00
+    },
+    {
+      "id": "0002",
+      "imgUrl": "http://hotemotion.fun:3389/static/18.jpg",
+      "name": "MIX 2保护壳",
+      "price": 29.00
+    },
+    {
+      "id": "0003",
+      "imgUrl": "http://hotemotion.fun:3389/static/11.jpg",
+      "name": "米家电水壶",
+      "price": 99.00
+    },
+    {
+      "id": "0004",
+      "imgUrl": "http://hotemotion.fun:3389/static/21.jpg",
+      "name": "自动折叠伞",
+      "price": 99.00
+    },
+    {
+      "id": "0005",
+      "imgUrl": "http://hotemotion.fun:3389/static/17.jpg",
+      "name": "小米运动蓝牙耳机",
+      "price": 129.00
+    }
+  ]
+}
