@@ -2,7 +2,11 @@
   <div>
     <home-header></home-header>
     <navbar :links="navLinks"></navbar>
+<<<<<<< HEAD
     <home-main-area></home-main-area>
+=======
+    <home-footer></home-footer>
+>>>>>>> origin/footer-dev
   </div>
 </template>
 
@@ -10,6 +14,7 @@
 import HomeHeader from './components/Header.vue'
 import navbar from '../common/navbar/Navbar.vue'
 import HomeMainArea from './components/MainArea.vue'
+import HomeFooter from './components/Footer.vue'
 export default {
   name: 'home',
   data () {
@@ -28,7 +33,8 @@ export default {
   components: {
     HomeHeader,
     navbar,
-    HomeMainArea
+    HomeMainArea,
+    HomeFooter
   }
 }
 </script>
