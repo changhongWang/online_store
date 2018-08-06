@@ -5,7 +5,10 @@
       <div v-if="ifLogin" class="user-info-wrapper">
         <span>{{userName}}</span>
         <a class="log-out-btn">登出</a>
-        <i class="iconfont cart">&#xe606;</i>
+        <div class="cart-wrapper">
+          <i class="iconfont cart">&#xe606;</i>
+          <i class="cart-number" v-show="cartNumber">{{cartNumber}}</i>
+        </div>
       </div>
       <a v-else class="log-in-btn">登录</a>
     </div>
@@ -18,7 +21,8 @@ export default {
   data () {
     return {
       ifLogin: true,
-      userName: 'WangChanghong'
+      userName: 'WangChanghong',
+      cartNumber: '99+'
     }
   }
 }
@@ -37,7 +41,7 @@ export default {
     }
     .header-main{
       float: right;
-      line-height: 75px;
+      line-height: 85px;
       .user-info-wrapper{
         font-size: 0;
         span, .log-out-btn{
@@ -45,9 +49,28 @@ export default {
           vertical-align: middle;
           padding: 0 5px;
         }
-        .cart{
-          vertical-align: middle;
-          font-size: 24px;
+        .cart-wrapper{
+          display: inline-block;
+          position: relative;
+          width: 45px;
+          .cart{
+            vertical-align: middle;
+            font-size: 24px;
+          }
+          .cart-number{
+            position: absolute;
+            top: 10px;
+            right: 0;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            color: #fff;
+            font-size: 12px;
+            font-style: normal;
+            background: #d1434a;
+            border-radius: 50%;
+          }
         }
       }
       .log-in-btn, .log-out-btn, .cart{
