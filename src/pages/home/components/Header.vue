@@ -2,28 +2,70 @@
   <header class="header">
     <div class="mi-logo-wrapper"><img src="~imgs/mi-logo.jpg" alt=""></div>
     <div class="header-main">
-      <div v-if="ifLogin" class="user-info-wrapper">
-        <span>{{userName}}</span>
-        <a class="log-out-btn">登出</a>
+      <div v-if="this.login_status" class="user-info-wrapper">
+        <span>{{this.username}}</span>
+        <a class="log-out-btn" @click="handleLogOutClick">登出</a>
         <div class="cart-wrapper">
           <i class="iconfont cart">&#xe606;</i>
           <i class="cart-number" v-show="cartNumber">{{cartNumber}}</i>
         </div>
       </div>
-      <a v-else class="log-in-btn">登录</a>
+      <a v-else class="log-in-btn" @click="handleLoginClick">登录</a>
     </div>
+    <login-modal :showLogin="showLogin" ref="login_modal"></login-modal>
   </header>
 </template>
 
 <script>
+import LoginModal from 'common/loginModal/LoginModal'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'HomeHeader',
   data () {
     return {
-      ifLogin: true,
-      userName: 'WangChanghong',
-      cartNumber: '99+'
+      cartNumber: '99+',
+      showLogin: false
     }
+  },
+  methods: {
+    // checkLogin () {
+    //   const axios = require('axios')
+    //   axios.get('api/users/checkLogin').then((res) => {
+    //     this.handleLogin(res)
+    //   }).catch((e) => {
+    //     console.log(e)
+    //   })
+    // },
+    ...mapActions(['checkLogin']),
+    // handleLogin (res) {
+    //   if (res.status === 200 && res.data) {
+    //     const stat = res.data.status
+    //     if (stat === '1') {
+    //       this.ifLogin = false
+    //     } else if (stat === '0') {
+    //       this.ifLogin = true
+    //       this.userName = res.data.result.userName
+    //       console.log(res.data)
+    //     }
+    //   }
+    // },
+    handleLoginClick () {
+      // header组件登录按钮点击
+      this.$refs.login_modal.showModal()
+    },
+    handleLogOutClick () {
+      // header组件登出按钮点击
+      this.$store.dispatch('handleLogOut')
+    }
+  },
+  components: {
+    LoginModal
+  },
+  computed: {
+    ...mapState(['login_status', 'username'])
+  },
+  mounted () {
+    this.checkLogin()
   }
 }
 </script>
@@ -79,6 +121,9 @@ export default {
         &:hover{
           color: #d1434a;
         }
+      }
+      .log-in-btn {
+        font-size: 16px
       }
     }
   }

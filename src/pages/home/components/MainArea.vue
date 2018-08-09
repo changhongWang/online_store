@@ -19,10 +19,10 @@
         </ul>
       </div>
       <div class="goods-list">
-        <div class="goods" v-for="goods in goodsList" :key="goods.id">
-          <img :src="goods.imgUrl" :alt="goods.name" class="goods-img">
-          <h5 class="goods-title">{{goods.name}}</h5>
-          <div class="goods-price">￥{{goods.price}}</div>
+        <div class="goods" v-for="goods in goodsList" :key="goods.productId">
+          <img :src="'/api/static/'+goods.productImg" :alt="goods.productName" class="goods-img">
+          <h5 class="goods-title">{{goods.productName}}</h5>
+          <div class="goods-price">￥{{goods.productPrice}}</div>
           <button class="add-to-cart">加入购物车</button>
         </div>
       </div>
@@ -30,6 +30,7 @@
   </section>
 </template>
 <script>
+import axios from 'axios'
 export default {
   name: 'homeMainArea',
   data () {
@@ -39,16 +40,23 @@ export default {
   },
   methods: {
     getData () {
-      const axios = require('axios')
-      axios.get('../static/index.json').then((res) => {
+      axios.get('/api/goods/list', {
+        params: {
+          page: 0,
+          pageSize: 8,
+          orderFlag: true,
+          priceLevel: 'all'
+        }
+      }).then((res) => {
         this.renderGoodsList(res)
       }).catch((e) => {
         console.log(e)
       })
     },
     renderGoodsList (res) {
-      if (res.data.stat && res.data.data) {
-        this.goodsList = res.data.data
+      if (res.status === 200) {
+        this.goodsList = res.data
+        console.log(this.goodsList)
       }
     }
   },
@@ -62,7 +70,7 @@ export default {
   @import "~styles/variables.less";
   @import "~styles/mixins.less";
   .main-area{
-    padding: 120px 20px 0;
+    padding: 60px 20px 0;
     background: @mainAreaBgColor;
 
     .filter-wrapper{
