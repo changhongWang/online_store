@@ -1,20 +1,17 @@
 <template>
   <div>
-    <home-header></home-header>
+    <cart-header></cart-header>
     <navbar :links="navLinks"></navbar>
-    <home-main-area></home-main-area>
-    <home-footer></home-footer>
+    <cart-main-area></cart-main-area>
   </div>
 </template>
 
 <script>
-import HomeHeader from './components/Header.vue'
+import CartHeader from './components/Header'
 import navbar from 'common/navbar/Navbar.vue'
-import HomeMainArea from './components/MainArea.vue'
-import HomeFooter from './components/Footer.vue'
-
+import CartMainArea from './components/MainArea'
 export default {
-  name: 'home',
+  name: 'Cart',
   data () {
     return {
       navLinks: [{
@@ -23,16 +20,15 @@ export default {
         href: '/'
       }, {
         id: '002',
-        name: '商品',
-        href: '/'
+        name: '购物车',
+        href: '/cart'
       }]
     }
   },
   components: {
-    HomeHeader,
+    CartHeader,
     navbar,
-    HomeMainArea,
-    HomeFooter
+    CartMainArea
   }
 }
 </script>

@@ -1,9 +1,9 @@
 <template>
-  <div class="login-modal-wrapper" v-if="ifShowModal">
+  <div class="login-modal-wrapper" v-if="this.$store.state.login_modal_show">
     <div class="login-modal">
       <div>
         <h2 class="login-title">登录</h2>
-        <i class="iconfont close-btn" @click="closeModal">&#xe60f;</i>
+        <i class="iconfont close-btn" @click="handleCloseModal">&#xe60f;</i>
       </div>
       <ul class="login-form">
         <li class="login-form-item">
@@ -30,21 +30,12 @@ export default {
   data () {
     return {
       userName: '',
-      password: '',
-      ifShowModal: false
+      password: ''
     }
   },
   methods: {
-    closeModal () {
-      this.resetModal()
-      this.ifShowModal = false
-    },
-    showModal () {
-      this.ifShowModal = true
-    },
-    resetModal () {
-      this.userName = ''
-      this.password = ''
+    handleCloseModal () {
+      this.$store.commit('hideLoginModal')
     },
     handleLoginClick () {
       if (this.userName !== '' && this.password !== '') {
@@ -61,6 +52,10 @@ export default {
         alert('密码为空')
       }
     }
+  },
+  beforeMount () { // 清空数据
+    this.userName = ''
+    this.password = ''
   }
 }
 </script>

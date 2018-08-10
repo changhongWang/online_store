@@ -23,7 +23,7 @@
           <img :src="'/api/static/'+goods.productImg" :alt="goods.productName" class="goods-img">
           <h5 class="goods-title">{{goods.productName}}</h5>
           <div class="goods-price">￥{{goods.productPrice}}</div>
-          <button class="add-to-cart">加入购物车</button>
+          <button class="add-to-cart" @click="addToCart">加入购物车</button>
         </div>
       </div>
     </div>
@@ -58,6 +58,13 @@ export default {
         this.goodsList = res.data
         console.log(this.goodsList)
       }
+    },
+    addToCart () {
+      this.$store.commit('showAlert', '加入购物车成功')
+      // 实际的加入购物车操作 todo
+      setTimeout(() => {
+        this.$store.commit('hideAlert')
+      }, 2000)
     }
   },
   mounted () {

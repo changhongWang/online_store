@@ -4,5 +4,6 @@ export default {
   username: '',
   loading_show: false,
   alert_show: false,
-  alert_msg: ''
+  alert_msg: '',
+  login_modal_show: false
 }

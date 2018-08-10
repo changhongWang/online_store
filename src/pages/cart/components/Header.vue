@@ -5,10 +5,10 @@
       <div v-if="this.login_status" class="user-info-wrapper">
         <span>{{this.username}}</span>
         <a class="log-out-btn" @click="handleLogOutClick">登出</a>
-        <router-link tag="div" to="/cart" class="cart-wrapper">
+        <div class="cart-wrapper">
           <i class="iconfont cart">&#xe606;</i>
-            <i class="cart-number" v-show="cartNumber">{{cartNumber}}</i>
-        </router-link>
+          <i class="cart-number" v-show="cartNumber">{{cartNumber}}</i>
+        </div>
       </div>
       <a v-else class="log-in-btn" @click="handleLoginClick">登录</a>
     </div>
@@ -20,7 +20,7 @@
 import LoginModal from 'common/loginModal/LoginModal'
 import { mapState, mapActions } from 'vuex'
 export default {
-  name: 'HomeHeader',
+  name: 'CartHeader',
   data () {
     return {
       cartNumber: '99+',

@@ -21,5 +21,11 @@ export default {
   hideAlert (state) {
     state.alert_show = false
     state.alert_msg = ''
+  },
+  showLoginModal (state) {
+    state.login_modal_show = true
+  },
+  hideLoginModal (state) {
+    state.login_modal_show = false
   }
 }

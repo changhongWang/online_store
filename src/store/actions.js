@@ -13,6 +13,7 @@ export default {
       ctx.commit('hideLoading')
       if (parseInt(res.data.status) === 0) {
         const userName = res.data.result.userName
+        ctx.commit('hideLoginModal')
         ctx.commit('showAlert', `欢迎您，${userName}`)
         ctx.commit('changeLoginStatus', true)
         ctx.commit('changeUserName', userName)
