@@ -11,14 +11,14 @@
             <div class="list-title">总价</div>
             <div class="list-title">编辑</div>
           </li>
-          <li>
+          <li v-for="item in cartList" :key="item.Id">
             <div class="list-item list-item-desc">
               <input type="checkbox">
-              <img src="http://hotemotion.fun:3389/static/17.jpg" alt="小米运动蓝牙耳机" class="item-img">
-              <span class="item-title">小米运动蓝牙耳机</span>
+              <img :src="'api/static/'+item.productImage" :alt="item.productName" class="item-img">
+              <span class="item-title">{{item.productName}}</span>
             </div>
-            <div class="list-item">￥29.00</div>
-            <div class="list-item">6</div>
+            <div class="list-item">￥{{item.salePrice}}</div>
+            <div class="list-item">{{item.productNum}}</div>
             <div class="list-item">774.00</div>
             <div class="list-item"><i class="iconfont">&#xe61e;</i></div>
           </li>
@@ -30,7 +30,8 @@
 
 <script>
 export default {
-  name: 'CartMainArea'
+  name: 'CartMainArea',
+  props: ['cartList']
 }
 </script>
 
@@ -51,7 +52,9 @@ export default {
     .cart{
       height: 1000px;
       .cart-list{
-        .clear-fix;
+        li{
+          .clear-fix;
+        }
         list-style: none;
         margin: 0;
         padding: 0;
