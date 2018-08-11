@@ -7,7 +7,7 @@
         <a class="log-out-btn" @click="handleLogOutClick">登出</a>
         <router-link tag="div" to="/cart" class="cart-wrapper">
           <i class="iconfont cart">&#xe606;</i>
-            <i class="cart-number" v-show="cartNumber">{{cartNumber}}</i>
+            <i class="cart-number" v-show="cart_num">{{cart_num}}</i>
         </router-link>
       </div>
       <a v-else class="log-in-btn" @click="handleLoginClick">登录</a>
@@ -23,7 +23,6 @@ export default {
   name: 'HomeHeader',
   data () {
     return {
-      cartNumber: '99+',
       showLogin: false
     }
   },
@@ -42,7 +41,7 @@ export default {
     LoginModal
   },
   computed: {
-    ...mapState(['login_status', 'username'])
+    ...mapState(['login_status', 'username', 'cart_num'])
   },
   mounted () {
     this.checkLogin()
