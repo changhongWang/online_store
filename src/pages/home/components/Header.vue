@@ -12,7 +12,7 @@
       </div>
       <a v-else class="log-in-btn" @click="handleLoginClick">登录</a>
     </div>
-    <login-modal :showLogin="showLogin " ref="login_modal"></login-modal>
+    <login-modal :showLogin="showLogin" ref="login_modal"></login-modal>
   </header>
 </template>
 
