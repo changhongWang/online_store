@@ -23,7 +23,7 @@
           <img :src="'/api/static/'+goods.productImg" :alt="goods.productName" class="goods-img">
           <h5 class="goods-title">{{goods.productName}}</h5>
           <div class="goods-price">￥{{goods.productPrice}}</div>
-          <button class="add-to-cart" @click="addToCart">加入购物车</button>
+          <button class="add-to-cart" @click="addToCart(goods.productId)">加入购物车</button>
         </div>
       </div>
     </div>
@@ -59,12 +59,21 @@ export default {
         console.log(this.goodsList)
       }
     },
-    addToCart () {
-      this.$store.commit('showAlert', '加入购物车成功')
-      // 实际的加入购物车操作 todo
-      setTimeout(() => {
-        this.$store.commit('hideAlert')
-      }, 2000)
+    addToCart (productId) {
+      if (productId) {
+        // 实际的加入购物车操作
+        axios.post('/api/goods/addCar', {productId: productId}).then((res) => {
+          console.log(res)
+          if (res.data.status === '0') {
+            this.$store.commit('showAlert', res.data.msg)
+          } else {
+            this.$store.commit('showAlert', '加入失败')
+          }
+          setTimeout(() => {
+            this.$store.commit('hideAlert')
+          }, 2000)
+        })
+      }
     }
   },
   mounted () {
