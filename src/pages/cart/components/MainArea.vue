@@ -13,13 +13,19 @@
           </li>
           <li v-for="item in cartList" :key="item.Id">
             <div class="list-item list-item-desc">
-              <input type="checkbox">
+              <input type="checkbox" :checked="true">
               <img :src="'api/static/'+item.productImage" :alt="item.productName" class="item-img">
               <span class="item-title">{{item.productName}}</span>
             </div>
             <div class="list-item">￥{{item.salePrice}}</div>
-            <div class="list-item">{{item.productNum}}</div>
-            <div class="list-item">774.00</div>
+            <div class="list-item">
+              <div class="list-item-number">
+                <button>-</button>
+                <span>{{item.productNum}}</span>
+                <button>+</button>
+              </div>
+            </div>
+            <div class="list-item list-item-price">￥{{item.salePrice * item.productNum}}</div>
             <div class="list-item"><i class="iconfont">&#xe61e;</i></div>
           </li>
         </ul>
@@ -98,6 +104,20 @@ export default {
             text-overflow: ellipsis;
             white-space: nowrap;
             display: inline-block;
+          }
+        }
+        .list-item-price{
+          color: #d1434a;
+        }
+        .list-item-number{
+          border: 1px solid #ccc;
+          border-radius: 3px;
+          display: inline-block;
+          line-height: 22px;
+          button{
+            outline: none;
+            cursor: pointer;
+            border: none;
           }
         }
       }
