@@ -2,7 +2,7 @@
   <div>
     <cart-header :cartList="cartInfo"></cart-header>
     <navbar :links="navLinks"></navbar>
-    <cart-main-area :cartList="cartInfo"></cart-main-area>
+    <cart-main-area :cartList="cartInfo" @update="handleCartUpdate"></cart-main-area>
   </div>
 </template>
 
@@ -39,6 +39,9 @@ export default {
       if (res.status === 200) {
         this.cartInfo = res.data.result
       }
+    },
+    handleCartUpdate () {
+      this.getCartInfo()
     }
   },
   components: {

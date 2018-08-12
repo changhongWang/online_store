@@ -13,16 +13,16 @@
           </li>
           <li v-for="item in cartList" :key="item.Id">
             <div class="list-item list-item-desc">
-              <input type="checkbox" :checked="true">
+              <input type="checkbox" :checked="item.checked === 1" @click.prevent="updateGoodsStat('chk', item.Id, item.checked, item.productNum)">
               <img :src="'api/static/'+item.productImage" :alt="item.productName" class="item-img">
               <span class="item-title">{{item.productName}}</span>
             </div>
             <div class="list-item">￥{{item.salePrice}}</div>
             <div class="list-item">
               <div class="list-item-number">
-                <button>-</button>
+                <button @click="updateGoodsStat('dec', item.Id, item.checked, item.productNum)">-</button>
                 <span>{{item.productNum}}</span>
-                <button>+</button>
+                <button @click="updateGoodsStat('inc', item.Id, item.checked, item.productNum)">+</button>
               </div>
             </div>
             <div class="list-item list-item-price">￥{{item.salePrice * item.productNum}}</div>
@@ -35,9 +35,35 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'CartMainArea',
-  props: ['cartList']
+  props: ['cartList'],
+  methods: {
+    updateGoodsStat (type, id, isChecked, productNum) {
+      if (type === 'chk') {
+        isChecked = !isChecked
+      }
+      if (type === 'inc') {
+        productNum++
+      } else if (type === 'dec') {
+        productNum--
+      }
+      this.$store.commit('showLoading')
+      axios.post('/api/users/carEdit', {
+        Id: id,
+        checked: isChecked,
+        productNum: productNum
+      }).then((res) => {
+        this.$store.commit('hideLoading')
+        console.log(res)
+        this.$emit('update')
+      }).catch((e) => {
+        this.$store.commit('hideLoading')
+        console.log(e)
+      })
+    }
+  }
 }
 </script>
 
