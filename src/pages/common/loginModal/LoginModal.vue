@@ -14,7 +14,7 @@
         </li>
         <li class="login-form-item">
           <i class="iconfont login-form-icon">&#xe60e;</i>
-          <input type="password" placeholder="密码" v-model="password" autocomplete="new-password">
+          <input type="password" placeholder="密码" v-model="password" @keydown.enter="handleLoginClick" autocomplete="new-password">
         </li>
         <li class="login-btn-wrapper">
           <button class="login-btn" @click="handleLoginClick">登录</button>

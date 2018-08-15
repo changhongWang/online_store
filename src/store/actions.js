@@ -54,7 +54,6 @@ export default {
       if (res.data.status === '0') {
         ctx.commit('changeLoginStatus', false)
         ctx.commit('changeUserName', '')
-        alert('登出成功')
       }
     }).catch((e) => {
       ctx.commit('hideLoading')
