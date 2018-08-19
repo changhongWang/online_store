@@ -4,18 +4,22 @@
       <span>排序：</span>
       <ul class="filter">
         <li><a href="#" class="active">默认</a></li>
-        <li><a href="#">价格</a></li>
+        <li>
+          <a href="#" @click="handleChangeOrder">价格</a>
+          <i v-show="orderFlag" class="iconfont">&#xe63a;</i>
+          <i v-show="!orderFlag" class="iconfont i-reverse">&#xe63a;</i>
+        </li>
       </ul>
     </div>
     <div class="goods-list-wrapper">
       <div class="price-filter">
         <h5 class="filter-title">价格：</h5>
-        <ul>
-          <li><a href="#" class="active">全部</a></li>
-          <li><a href="#">0.00 - 100.00</a></li>
-          <li><a href="#">100.00 - 500.00</a></li>
-          <li><a href="#">500.00 - 1000.00</a></li>
-          <li><a href="#">1000.00 - 8000.00</a></li>
+        <ul @click="handlePriceChange">
+          <li><a data-level="all" :class="{active: priceLevel === 'all'}">全部</a></li>
+          <li><a data-level="0" :class="{active: priceLevel === '0'}">0.00 - 100.00</a></li>
+          <li><a data-level="1" :class="{active: priceLevel === '1'}">100.00 - 500.00</a></li>
+          <li><a data-level="2" :class="{active: priceLevel === '2'}">500.00 - 1000.00</a></li>
+          <li><a data-level="3" :class="{active: priceLevel === '3'}">1000.00 - 8000.00</a></li>
         </ul>
       </div>
       <div class="goods-list">
@@ -35,17 +39,21 @@ export default {
   name: 'homeMainArea',
   data () {
     return {
-      goodsList: []
+      goodsList: [],
+      page: 0,
+      pageSize: 8,
+      orderFlag: true,
+      priceLevel: 'all'
     }
   },
   methods: {
-    getData () {
+    getGoodsList () {
       axios.get('/api/goods/list', {
         params: {
-          page: 0,
-          pageSize: 8,
-          orderFlag: true,
-          priceLevel: 'all'
+          page: this.page,
+          pageSize: this.pageSize,
+          orderFlag: this.orderFlag,
+          priceLevel: this.priceLevel
         }
       }).then((res) => {
         this.renderGoodsList(res)
@@ -55,9 +63,16 @@ export default {
     },
     renderGoodsList (res) {
       if (res.status === 200) {
-        this.goodsList = res.data
-        console.log(this.goodsList)
+        if (this.goodsList.length === 0) {
+          this.goodsList = res.data
+        } else {
+          res.data.forEach(item => this.goodsList.push(item))
+        }
       }
+    },
+    clearGoodsList () {
+      this.goodsList = []
+      this.page = 0
     },
     addToCart (productId) {
       if (productId) {
@@ -82,10 +97,38 @@ export default {
       setTimeout(() => {
         this.$store.commit('hideAlert')
       }, 1000)
+    },
+    handleScroll () {
+      const top = document.documentElement.scrollTop
+      const docHeight = document.documentElement.offsetHeight - 200 - 50 - 390
+      // footer高度 200 padding-bottom 50px  390px
+      console.log(111)
+      if (docHeight <= top) {
+        if (this.page < 4) {
+          this.page++
+          this.getGoodsList()
+        }
+      }
+    },
+    handleChangeOrder () {
+      this.orderFlag = !this.orderFlag
+      this.clearGoodsList()
+      this.getGoodsList()
+    },
+    handlePriceChange (e) {
+      this.priceLevel = e.target.dataset.level
+      this.clearGoodsList()
+      this.getGoodsList()
     }
   },
   mounted () {
-    this.getData()
+    this.getGoodsList()
+  },
+  activated () {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  deactivated () {
+    window.removeEventListener('scroll', this.handleScroll)
   }
 }
 </script>
@@ -127,6 +170,10 @@ export default {
           .active{
             color: @filterActiveColor
           }
+          .i-reverse{
+            display: inline-block;
+            transform: rotate(180deg);
+          }
         }
       }
     }
@@ -157,6 +204,7 @@ export default {
               color: @filterFontColor;
               text-decoration: none;
               display: inline-block;
+              cursor: pointer;
               &:hover{
                 color: @filterHoverColor;
                 border-left: 3px solid @filterHoverColor;
