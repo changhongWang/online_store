@@ -36,7 +36,7 @@ export default {
       })
     },
     getCartInfoSucc (res) {
-      if (res.status === 200) {
+      if (res.status === 200 && res.data.status !== '1') {
         this.cartInfo = res.data.result
       }
     },

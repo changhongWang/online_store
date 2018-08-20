@@ -26,9 +26,15 @@
               </div>
             </div>
             <div class="list-item list-item-price">￥{{item.salePrice * item.productNum}}</div>
-            <div class="list-item"><i class="iconfont">&#xe61e;</i></div>
+            <div class="list-item"><i class="iconfont delete-item" @click="handleDeleteItemClick">&#xe61e;</i></div>
           </li>
         </ul>
+      </div>
+      <div class="price-wrapper">
+        <button class="submit-order-btn">提交订单</button>
+        <div class="price">￥{{totalPrice}}</div>
+        <input type="checkbox" id="select_btn" :checked="isAllSelected" @click="handleSelectAll">
+        <label for="select_btn">全选</label>
       </div>
     </div>
   </div>
@@ -56,12 +62,49 @@ export default {
         productNum: productNum
       }).then((res) => {
         this.$store.commit('hideLoading')
-        console.log(res)
         this.$emit('update')
       }).catch((e) => {
         this.$store.commit('hideLoading')
         console.log(e)
       })
+    },
+    handleSelectAll () {
+      this.$store.commit('showLoading')
+      axios.post('/api/users/carCheckAll', {checked: !this.isAllSelected}).then((res) => {
+        this.$store.commit('hideLoading')
+        this.$emit('update')
+      }).catch((e) => {
+        this.$store.commit('hideLoading')
+        console.log(e)
+      })
+    },
+    handleDeleteItemClick () {
+
+    }
+  },
+  computed: {
+    totalPrice () {
+      let totalPrice = 0
+      if (this.cartList !== []) {
+        this.cartList.forEach((item) => {
+          if (item.checked === 1) {
+            totalPrice += item.salePrice * item.productNum
+          }
+        })
+      }
+      return totalPrice
+    },
+    isAllSelected () {
+      let bol = true
+      if (this.cartList !== []) {
+        this.cartList.forEach((item) => {
+          if (item.checked === 0) {
+            console.log(1)
+            bol = false
+          }
+        })
+      }
+      return bol
     }
   }
 }
@@ -82,7 +125,6 @@ export default {
       color: #333;
     }
     .cart{
-      height: 1000px;
       .cart-list{
         li{
           .clear-fix;
@@ -91,7 +133,7 @@ export default {
         margin: 0;
         padding: 0;
         min-width: 1000px;
-        border: 1px solid #999;
+        border: 1px solid #ccc;
         .list-title{
           background: #605f61;
           color: #fff;
@@ -135,6 +177,9 @@ export default {
         .list-item-price{
           color: #d1434a;
         }
+        .delete-item{
+          cursor: pointer
+        }
         .list-item-number{
           border: 1px solid #ccc;
           border-radius: 3px;
@@ -146,6 +191,35 @@ export default {
             border: none;
           }
         }
+      }
+    }
+    .price-wrapper{
+      .clear-fix;
+      border: 1px solid #ccc;
+      margin-top: 20px;
+      input{
+        margin-left: 20px;
+        vertical-align: middle;
+      }
+      label{
+        margin-left: 10px;
+        line-height: 40px;
+        vertical-align: middle;
+      }
+      .price{
+        float: right;
+        line-height: 40px;
+        margin-right: 20px;
+        color: #d1434a;
+      }
+      .submit-order-btn{
+        float: right;
+        width: 120px;
+        height: 40px;
+        background: #ff0000;
+        border: none;
+        outline: none;
+        color: #fff;
       }
     }
   }
