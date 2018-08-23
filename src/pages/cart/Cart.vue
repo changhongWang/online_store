@@ -3,6 +3,7 @@
     <cart-header :cartList="cartInfo"></cart-header>
     <navbar :links="navLinks"></navbar>
     <cart-main-area :cartList="cartInfo" @update="handleCartUpdate"></cart-main-area>
+    <c-footer></c-footer>
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import CartHeader from './components/Header'
 import navbar from 'common/navbar/Navbar.vue'
 import CartMainArea from './components/MainArea'
+import Footer from 'common/footer/Footer.vue'
 export default {
   name: 'Cart',
   data () {
@@ -47,7 +49,8 @@ export default {
   components: {
     CartHeader,
     navbar,
-    CartMainArea
+    CartMainArea,
+    CFooter: Footer
   },
   mounted () {
     this.getCartInfo()

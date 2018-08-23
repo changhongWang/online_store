@@ -102,7 +102,6 @@ export default {
       const top = document.documentElement.scrollTop
       const docHeight = document.documentElement.offsetHeight - 200 - 50 - 390
       // footer高度 200 padding-bottom 50px  390px
-      console.log(111)
       if (docHeight <= top) {
         if (this.page < 4) {
           this.page++

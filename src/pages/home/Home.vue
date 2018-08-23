@@ -3,7 +3,7 @@
     <home-header></home-header>
     <navbar :links="navLinks"></navbar>
     <home-main-area></home-main-area>
-    <home-footer></home-footer>
+    <c-footer></c-footer>
   </div>
 </template>
 
@@ -11,7 +11,7 @@
 import HomeHeader from './components/Header.vue'
 import navbar from 'common/navbar/Navbar.vue'
 import HomeMainArea from './components/MainArea.vue'
-import HomeFooter from './components/Footer.vue'
+import Footer from 'common/footer/Footer.vue'
 
 export default {
   name: 'home',
@@ -32,7 +32,7 @@ export default {
     HomeHeader,
     navbar,
     HomeMainArea,
-    HomeFooter
+    CFooter: Footer
   }
 }
 </script>

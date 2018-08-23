@@ -114,7 +114,7 @@ export default {
   @import '~styles/mixins.less';
   div.main-container{
     background: #f5f7fc;
-    padding-top: 20px;
+    padding: 20px 0 100px;
   }
   .shopping-cart-wrapper{
     margin: 0 50px;
