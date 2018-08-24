@@ -70,10 +70,12 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 3000;
     .login-modal{
       .clear-fix;
       position: absolute;
       margin: 0 auto;
+      z-index: 3001;
       padding: 10px 30px;
       top: 50%;
       left: 50%;
